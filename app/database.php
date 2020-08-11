@@ -25,7 +25,7 @@ class db{
     public function conecctionDB(){
         try {
             //new PDO("mysql:local=localhost;dbname=papeleria","root",""); esta conexion es para local, la de abajo es en la nube de Google cloud 
-            $conectar = $this->dbh = new PDO("mysql:host=35.236.252.37;dbname=papeleria_arcoiris","admin","papeleria-arcoiris");
+            $conectar = $this->dbh = new PDO("mysql:host=35.236.252.37;dbname=papeleria","admin","papeleria-arcoiris");
          
             return $conectar;
            
