@@ -64,8 +64,7 @@ class Ventas {
                 self::restarStock($nuevoValor,$idproducto);
                 $producto = $value->pro;
                 $iva = $value->iva;
-                $subtotal = $value->subtotal;
-                echo json_encode($value);
+                $subtotal = $value->sub;
                 $total = $value->total;
                 $grantotal = $grantotal +$total;
                 self::setDetalles($producto,$nuevoValor,$iva,$subtotal,$total,$folio);
