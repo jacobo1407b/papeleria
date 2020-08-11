@@ -39,7 +39,7 @@ class Ventas {
             $cantidad = self::countProduct($value->id);
             foreach($cantidad as $clave=>$val){
                 if($val['cantidad']>$value->cantidad){
-                    array_push($errores);
+
                 }else{
                     $produno=$val['nombre'];
                     $newErr= array("error"=>true,"message"=>"No hay suficiente $produno");
@@ -64,7 +64,8 @@ class Ventas {
                 self::restarStock($nuevoValor,$idproducto);
                 $producto = $value->pro;
                 $iva = $value->iva;
-                $subtotal = $value->sub;
+                $subtotal = $value->subtotal;
+                echo json_encode($value);
                 $total = $value->total;
                 $grantotal = $grantotal +$total;
                 self::setDetalles($producto,$nuevoValor,$iva,$subtotal,$total,$folio);
