@@ -63,7 +63,7 @@ $app->group('/ventas/', function () {
     });
     
 
-    $this->post('newventa', function ($req, $res, $args) {
+    $this->put('newventa', function ($req, $res, $args) {
         $body = json_decode($req->getBody());
         $producto=$body->data;
         $fecha=$body->fecha;

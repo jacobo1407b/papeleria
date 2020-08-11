@@ -12,7 +12,10 @@ $app->add(function ($req, $res, $next) {
             ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
 });
 $app->group('/user/', function () {
-    
+    $this->get('i', function ($req, $res, $args) {
+        $res->getBody()->write('funciona');
+        return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
+    });
     $this->put('register', function ($req, $res, $args) {
         $emp = json_decode($req->getBody());
         $nombre=$emp->nombre;
