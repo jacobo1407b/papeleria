@@ -15,7 +15,7 @@ class Auth{
     private function iv(){
         return base64_decode("C9fBxl1EWtYTL1/M8jfstw==");
     }
-    public static function SignIn($data){
+    public  function SignIn($data){
         $time = time();
 
         $token = array(
@@ -26,7 +26,7 @@ class Auth{
         return self::encriptar(JWT::encode($token, self::$secret_key)) ;
     }
 
-    public static function Check($token){
+    public  function Check($token){
         if(empty($token)){
            return array(
                "msg"=>"json web token requerido",
@@ -57,7 +57,7 @@ class Auth{
         }*/
     }
 
-    public static function GetData($token){
+    public  function GetData($token){
         $data = JWT::decode(
             $token,
             self::$secret_key,
@@ -70,7 +70,7 @@ class Auth{
          );
     }
 
-    private static function Aud(){
+    private function Aud(){
         $aud = '';
 
         if (!empty($_SERVER['HTTP_CLIENT_IP'])) {

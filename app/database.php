@@ -24,14 +24,8 @@ $capsule->addConnection([
 class db{
     public function conecctionDB(){
         try {
-            $dsn = "/cloudsql/coastal-volt-275801:us-east4:papeleria-dani";
-            $user = "papeleria-dani";
-            $password = "papeleria-dani123";
-            //PDO($dsn, $user, $password);
-            //$dsn = sprintf('mysql:dbname=%s;host=%s', 'papeleria-dani', '35.245.250.197');
-            //PDO("mysql:host=35.245.250.197;dbname=papeleria-dani","","");
-            //
-            $conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=papeleria","root",""); 
+            //new PDO("mysql:local=localhost;dbname=papeleria","root",""); esta conexion es para local, la de abajo es en la nube de Google cloud 
+            $conectar = $this->dbh = new PDO("mysql:host=35.236.252.37;dbname=papeleria_arcoiris","admin","papeleria-arcoiris");
          
             return $conectar;
            
