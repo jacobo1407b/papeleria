@@ -12,14 +12,26 @@ $capsule->addConnection([
     "collation" => "utf8_general_ci",
     "prefix"    => ""
 ]);*/
+//Dta base: PAPELERIADANI
+// DTA BASE USER: J1407B
+//PASSWORD:6@\dRKhB}Dd_Os9T
+
+//DB Name:id14581626_papeleriadani
+//DB User:	id14581626_j1407b
+//host : localhost
+
 
 class db{
     public function conecctionDB(){
         try {
-            $databse = getenv('DBNAME');
-            $userdb=getenv('USERDB');
-            $passwordSql=getenv('PASSWORD');
-            $conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=papeleria","root","");
+            $dsn = "/cloudsql/coastal-volt-275801:us-east4:papeleria-dani";
+            $user = "papeleria-dani";
+            $password = "papeleria-dani123";
+            //PDO($dsn, $user, $password);
+            //$dsn = sprintf('mysql:dbname=%s;host=%s', 'papeleria-dani', '35.245.250.197');
+            //PDO("mysql:host=35.245.250.197;dbname=papeleria-dani","","");
+            //
+            $conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=papeleria","root",""); 
          
             return $conectar;
            

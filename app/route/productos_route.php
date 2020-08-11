@@ -18,6 +18,14 @@ $app->group('/productos/', function () {
         $res->getBody()->write($payload);
         return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
     });
+    $this->get('todos', function ($req, $res, $args) {
+        $user = $req->getAttribute('user');
+        $producto = new Producto(json_encode($user['user']->id + 0));
+        $obtener = $producto->todos();
+        $payload = json_encode($obtener);
+        $res->getBody()->write($payload);
+        return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
+    });
 
     $this->post('new-product', function ($req, $res, $args) {
         $body = json_decode($req->getBody());

@@ -89,4 +89,15 @@ class Producto{
             return array("message" => "Error al eliminar","error"=>true);
         }
     }
+
+    public function todos(){
+        $db = new db();
+        $db = $db->conecctionDB();
+        $sql="select * from productos where user=?";
+        $sql=$db->prepare($sql);
+        $sql->bindValue(1,$this->id);
+        $sql->execute();
+        $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+        return $resultado;
+    }
 }

@@ -1,6 +1,6 @@
-<IfModule mod_rewrite.c>
+<IfModule mod_rewrite.c mod_php5.c>
   RewriteEngine On
-
+  php_value always_populate_raw_post_data -1
   # Some hosts may require you to use the `RewriteBase` directive.
   # Determine the RewriteBase automatically and set it as environment variable.
   # If you are using Apache aliases to do mass virtual hosting or installed the
