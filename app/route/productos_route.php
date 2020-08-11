@@ -27,7 +27,7 @@ $app->group('/productos/', function () {
         return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
     });
 
-    $this->post('new-product', function ($req, $res, $args) {
+    $this->put('new-product', function ($req, $res, $args) {
         $body = json_decode($req->getBody());
         $nombre=$body->nombre;
         $precio=$body->precio;

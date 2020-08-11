@@ -13,7 +13,7 @@ $app->add(function ($req, $res, $next) {
 });
 $app->group('/user/', function () {
     
-    $this->post('register', function ($req, $res, $args) {
+    $this->put('register', function ($req, $res, $args) {
         $emp = json_decode($req->getBody());
         $nombre=$emp->nombre;
         $apaterno=$emp->apellidop;
@@ -31,7 +31,7 @@ $app->group('/user/', function () {
         return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
     });
 
-    $this->post('login/auth', function ($req, $res, $args) {
+    $this->put('login/auth', function ($req, $res, $args) {
         $emp = json_decode($req->getBody());
         $email=$emp->email;
         $password=$emp->password;

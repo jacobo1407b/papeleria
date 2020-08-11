@@ -16,7 +16,7 @@ $app->group('/biografia/', function () {
         return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
     }); 
 
-    $this->post('new-biografia', function ($req, $res, $args) {
+    $this->put('new-biografia', function ($req, $res, $args) {
         $body = json_decode($req->getBody());
         $nombre=$body->nombre;
         /**extraer data */
