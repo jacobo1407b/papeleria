@@ -68,7 +68,7 @@ class Ventas {
                 $subtotal = $value->sub;
                 $total = $value->total;
                 $grantotal = $grantotal +$total;
-                self::setDetalles($producto,$nuevoValor,$iva,$subtotal,$total,$folio);
+                self::setDetalles($producto,$paraquitar,$iva,$subtotal,$total,$folio);
             }
             self::finalVenta($folio,$newDate,$grantotal);
             //actualiza stock
@@ -97,7 +97,6 @@ class Ventas {
         $sql->bindValue(2,$idPro);
         $sql->bindValue(3,$this->id);
         $sql->execute();
-        return true;
     }
     private function setDetalles($producto,$cantidad,$iva,$sub,$total,$folio){
         $conexion = $this->conectar->conecctionDB();
@@ -112,7 +111,6 @@ class Ventas {
         $sql->bindValue(6,$folio);
         $sql->bindValue(7,$this->id);
         $sql->execute();
-        return true;
     }
 
     private function finalVenta($folio,$fecha,$total){
@@ -124,7 +122,6 @@ class Ventas {
         $sql->bindValue(3,$total);
         $sql->bindValue(4,$this->id);
         $sql->execute();
-        return true;
     }
 
     /**obtener los detalles */
