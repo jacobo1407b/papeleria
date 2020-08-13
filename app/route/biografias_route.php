@@ -1,9 +1,12 @@
 <?php
 
 $app->group('/biografia/', function () {
-    $this->get('index', function ($req, $res, $args) {
-        return $res->getBody()
-                   ->write('Hello Users');
+    $this->get('todo', function ($req, $res, $args) {
+        $user = $req->getAttribute('user');
+        $biogra = new Biografia(json_encode($user['user']->id + 0));
+        $obtener=$biogra->getAll();
+        $res->getBody()->write(json_encode($obtener));
+        return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
     });  
 
     $this->get('getbiografia/{numero}', function ($req, $res, $args) {

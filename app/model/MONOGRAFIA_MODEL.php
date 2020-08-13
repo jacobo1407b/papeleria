@@ -67,4 +67,14 @@ class Monografia {
             return array("message" => "Error en la consulta","error"=>true);
         }
     }
+
+    public function getAll(){
+        $conexion = $this->conectar->conecctionDB();
+        $sql="select * from monografia where user=?";
+        $sql=$conexion->prepare($sql);
+        $sql->bindValue(1,$this->id);
+        $sql->execute();
+        $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+        return array("data"=>$resultado,$resultado);
+    }
 }

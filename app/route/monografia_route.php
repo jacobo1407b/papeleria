@@ -2,8 +2,11 @@
 
 $app->group('/monografia/', function () {
     $this->get('index', function ($req, $res, $args) {
-        return $res->getBody()
-                   ->write('Hello Users');
+        $user = $req->getAttribute('user');
+        $biogra = new Monografia(json_encode($user['user']->id + 0));
+        $obtener=$biogra->getAll();
+        $res->getBody()->write(json_encode($obtener));
+        return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
     });  
 
     $this->get('getmonografia/{numero}', function ($req, $res, $args) {

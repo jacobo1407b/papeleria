@@ -8,8 +8,8 @@ class Ventas {
 
     public function getVenta($pagina){
         $conexion = $this->conectar->conecctionDB();
-        $salto = ((20* $pagina)-20);
-        $sql="select * from ventas where user=? LIMIT 20 OFFSET $salto";
+        $salto = ((9* $pagina)-9);
+        $sql="select * from ventas where user=? LIMIT 9 OFFSET $salto";
         $sql=$conexion->prepare($sql);
         $sql->bindValue(1,$this->id);
         $sql->execute();
@@ -25,7 +25,7 @@ class Ventas {
         $sql->bindValue(1,$this->id);
         $sql->execute();
         $cou=$sql->rowCount();
-        $paginas = $cou/20;
+        $paginas = $cou/9;
         return ceil($paginas); 
     }
 
@@ -34,16 +34,17 @@ class Ventas {
         $newDate = $fecha;
         $conexion = $this->conectar->conecctionDB();
         $errores = array();
+        $si = array();
         //comprobar stock
         foreach($data as  $clave=>$value){
             $cantidad = self::countProduct($value->id);
             foreach($cantidad as $clave=>$val){
-                if($val['cantidad']>$value->cantidad){
-
-                }else{
+                if($val['cantidad']<$value->cantidad){
                     $produno=$val['nombre'];
                     $newErr= array("error"=>true,"message"=>"No hay suficiente $produno");
                     array_push($errores,$newErr);
+                }else{
+                    array_push($si,null);
                 }
 
             }
