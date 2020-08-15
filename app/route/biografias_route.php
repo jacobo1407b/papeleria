@@ -22,11 +22,12 @@ $app->group('/biografia/', function () {
     $this->put('new-biografia', function ($req, $res, $args) {
         $body = json_decode($req->getBody());
         $nombre=$body->nombre;
+        $codigo=$body->codigo;
         /**extraer data */
         $user = $req->getAttribute('user');
         $biogra = new Biografia(json_encode($user['user']->id + 0));
         /**instanciar biografia */
-        $agregar = $biogra->agregarBiografia($nombre);
+        $agregar = $biogra->agregarBiografia($nombre,$codigo);
         /**metodo para agregar */
         $res->getBody()->write(json_encode($agregar));
         return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
@@ -35,11 +36,12 @@ $app->group('/biografia/', function () {
     $this->put('actualiza-biografia/{id}', function ($req, $res, $args) {
         $body = json_decode($req->getBody());
         $nombre=$body->nombre;
+        $codigo=$body->codigo;
         /**extraer data */
         $user = $req->getAttribute('user');//obtener usuario
         $param = $req->getAttribute('route')->getArgument('id');/**obtener id */
         $actualiza = new Biografia(json_encode($user['user']->id + 0));
-        $respuesta = $actualiza->editarBio($nombre,$param);
+        $respuesta = $actualiza->editarBio($nombre,$param,$codigo);
         $res->getBody()->write(json_encode($respuesta));
         return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
     });
@@ -61,6 +63,14 @@ $app->group('/ventas/', function () {
         $ventas = new Ventas(json_encode($user['user']->id + 0));
 
         $obtener=$ventas->getVenta($param);
+        $res->getBody()->write(json_encode($obtener));
+        return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
+    });
+    $this->get('all', function ($req, $res, $args) {
+        $user = $req->getAttribute('user');
+        $ventas = new Ventas(json_encode($user['user']->id + 0));
+
+        $obtener=$ventas->getAllVenta();
         $res->getBody()->write(json_encode($obtener));
         return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
     });

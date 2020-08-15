@@ -26,7 +26,8 @@ class db{
         try {
             //PDO("mysql:host=35.236.252.37;dbname=papeleria","admin","papeleria-arcoiris");
             //PDO("mysql:local=localhost;dbname=papeleria","root",""); new  esta conexion es para local, la de abajo es en la nube de Google cloud 
-            $conectar = $this->dbh = new PDO("mysql:host=bb2ilcw6loswplcrwdac-mysql.services.clever-cloud.com;dbname=bb2ilcw6loswplcrwdac","u49aduznumcwoiuq","tgAbUKfXj4jgD8rcwpOO");
+            // PDO("mysql:host=bb2ilcw6loswplcrwdac-mysql.services.clever-cloud.com;dbname=bb2ilcw6loswplcrwdac","u49aduznumcwoiuq","tgAbUKfXj4jgD8rcwpOO");
+            $conectar = $this->dbh = new PDO("mysql:local=localhost;dbname=papeleria","root","");
          
             return $conectar;
            

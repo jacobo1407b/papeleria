@@ -30,32 +30,49 @@ class Biografia  {
         return ceil($paginas); 
     }
 
-    public function agregarBiografia($nombre){
+    public function agregarBiografia($nombre,$codigo){
+        
         $conexion = $this->conectar->conecctionDB();
-        $sql="insert into biografia
-           values(null,?,?);";
-        $sql=$conexion->prepare($sql);
-        $sql->bindValue(1,$nombre);
-        $sql->bindValue(2,$this->id);
-        if($sql->execute()){
-            return array("message" => "Registro agregado con éxito","error"=>false);
+        if(self::bucarCodigo($codigo)>0){
+            return array("message" => "Ya existe una biografia con este codigo","error"=>true);
+        }else{
+            $sql="insert into biografia values(null,?,?,?);";
+            $sql=$conexion->prepare($sql);
+            $sql->bindValue(1,$nombre);
+            $sql->bindValue(2,$this->id);
+            $sql->bindValue(3,$codigo);
+            $respuest = $sql->execute();
+            if($respuest){
+                return array("message" => "Registro agregado con éxito","error"=>false);
         }else{
             return array("message" => "Error en la consulta","error"=>true);
         }
+        }
     }
 
-    public function editarBio($nombre,$idBio){
+    public function editarBio($nombre,$idBio,$codigo){
         $conexion = $this->conectar->conecctionDB();
-        $sql="update biografia set nombre=? where id=? and user=?";
-        $sql=$conexion->prepare($sql);
-        $sql->bindValue(1,$nombre);
-        $sql->bindValue(2,$idBio);
-        $sql->bindValue(3,$this->id);
-        if($sql->execute()){
-            return array("message" => "Actualización con éxito","error"=>false);
+        if(self::bucarCodigo($codigo)>0){
+            $sql="update biografia set nombre=?, where id=? and user=?";
+            $sql=$conexion->prepare($sql);
+            $sql->bindValue(1,$nombre);
+            $sql->bindValue(2,$idBio);
+            $sql->bindValue(3,$this->id);
+            return array("message" => "Ya existe una biografia con este codigo, El nombre fue actualizado","warn"=>true);
         }else{
-            return array("message" => "Error al actualizar","error"=>true);
+            $sql="update biografia set nombre=?,codigo=? where id=? and user=?";
+            $sql=$conexion->prepare($sql);
+            $sql->bindValue(1,$nombre);
+            $sql->bindValue(2,$codigo);
+            $sql->bindValue(3,$idBio);
+            $sql->bindValue(4,$this->id);
+            if($sql->execute()){
+                return array("message" => "Actualización con éxito","error"=>false);
+            }else{
+                return array("message" => "Error al actualizar","error"=>true);
+            }
         }
+        
     }
 
     public function deleteBio($id){
@@ -79,5 +96,15 @@ class Biografia  {
         $sql->execute();
         $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
         return array("data"=>$resultado);
+    }
+    private function bucarCodigo($codigo){
+        $conexion = $this->conectar->conecctionDB();
+        $sql="select * from biografia where codigo=? and  user=?";
+        $sql=$conexion ->prepare($sql);
+        $sql->bindValue(1,$codigo+0);
+        $sql->bindValue(2,$this->id);
+        $sql->execute();
+        $cou=$sql->rowCount();
+        return $cou;
     }
 }

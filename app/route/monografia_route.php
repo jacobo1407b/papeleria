@@ -22,11 +22,12 @@ $app->group('/monografia/', function () {
     $this->put('new-monografia', function ($req, $res, $args) {
         $body = json_decode($req->getBody());
         $nombre=$body->nombre;
+        $codigo=$body->codigo;
         /**extraer data */
         $user = $req->getAttribute('user');
         $setMono = new Monografia(json_encode($user['user']->id + 0));
         /**instanciar biografia */
-        $agregar = $setMono->agregarMonografia($nombre);
+        $agregar = $setMono->agregarMonografia($nombre,$codigo);
         /**metodo para agregar */
         $res->getBody()->write(json_encode($agregar));
         return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
@@ -35,11 +36,12 @@ $app->group('/monografia/', function () {
     $this->put('actualiza-monografia/{id}', function ($req, $res, $args) {
         $body = json_decode($req->getBody());
         $nombre=$body->nombre;
+        $codigo=$body->codigo;
         /**extraer data */
         $user = $req->getAttribute('user');//obtener usuario
         $param = $req->getAttribute('route')->getArgument('id');/**obtener id */
         $actualiza = new Monografia(json_encode($user['user']->id + 0));
-        $respuesta = $actualiza->editarMonografia($nombre,$param);
+        $respuesta = $actualiza->editarMonografia($nombre,$param, $codigo);
         $res->getBody()->write(json_encode($respuesta));
         return $res->withHeader('Content-Type', 'application/json')->withStatus(201);
     });

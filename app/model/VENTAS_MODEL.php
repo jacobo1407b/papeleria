@@ -136,4 +136,14 @@ class Ventas {
         $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
         return $resultado;
     }
+
+    public function getAllVenta(){
+        $conexion = $this->conectar->conecctionDB();
+        $sql="select * from ventas where user=?";
+        $sql=$conexion->prepare($sql);
+        $sql->bindValue(1,$this->id);
+        $sql->execute();
+        $resultado=$sql->fetchAll(PDO::FETCH_ASSOC);
+        return array("data"=>$resultado);
+    }
 }
