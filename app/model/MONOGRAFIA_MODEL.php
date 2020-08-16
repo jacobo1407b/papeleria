@@ -55,6 +55,7 @@ class Monografia {
             $sql->bindValue(1,$nombre);
             $sql->bindValue(2,$idMono);
             $sql->bindValue(3,$this->id);
+            $sql->execute();
             return array("message" => "Este codigo ya existe, el nombre fue actualizado","warn"=>true);
         }else{
             $sql="update monografia set nombre=?,codigo=? where id=? and user=?";

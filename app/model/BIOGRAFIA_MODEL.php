@@ -53,11 +53,12 @@ class Biografia  {
     public function editarBio($nombre,$idBio,$codigo){
         $conexion = $this->conectar->conecctionDB();
         if(self::bucarCodigo($codigo)>0){
-            $sql="update biografia set nombre=?, where id=? and user=?";
+            $sql="update biografia set nombre=? where id=? and user=?";
             $sql=$conexion->prepare($sql);
             $sql->bindValue(1,$nombre);
             $sql->bindValue(2,$idBio);
             $sql->bindValue(3,$this->id);
+            $sql->execute();
             return array("message" => "Ya existe una biografia con este codigo, El nombre fue actualizado","warn"=>true);
         }else{
             $sql="update biografia set nombre=?,codigo=? where id=? and user=?";
